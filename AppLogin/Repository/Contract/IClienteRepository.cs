@@ -14,11 +14,11 @@ namespace AppLogin.Repository.Contract
         void Excluir(int Id);
         Cliente ObterCliente(int Id);
         IEnumerable<Cliente> ObterTodosClientes();
-
         IPagedList<Cliente> ObterTodosClientes(int? pagina, string pesquisa);
-
         void Ativar(int id);
         void Desativar(int id);
+        Cliente BuscaCpfCliente (string Cpf);
+        Cliente BuscaEmailCliente (string Email);
     }
 
 }

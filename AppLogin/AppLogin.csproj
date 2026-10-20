@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Colaborador\Data\" />
+    <Folder Include="wwwroot\lib\mask\" />
     <Folder Include="wwwroot\resources\" />
   </ItemGroup>
 

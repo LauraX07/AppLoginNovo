@@ -84,10 +84,25 @@ namespace AppLogin.Controllers
         [HttpPost]
         public IActionResult Cadastrar([FromForm] Cliente cliente)
         {
-            cliente.Situacao = SituacaoConstant.Ativo;
+            var CPFExit = _clienteRepository.BuscaCpfCliente(cliente.CPF).CPF;
+            var EmailExit = _clienteRepository.BuscaEmailCliente(cliente.Email).Email;
 
-            _clienteRepository.Cadastrar(cliente);
-            return RedirectToAction(nameof(Cadastrar));
+            if (!string.IsNullOrWhiteSpace(CPFExit))
+            {
+                ViewData["MSG_CPF"] = "CPF já cadastrado, por favor verifique os dados digitados";
+                return View();
+            }
+            else if (!string.IsNullOrWhiteSpace(EmailExit))
+            {
+                ViewData["MSG_Email"] = "E-mail já cadastrado, por favor verifique os dados digitados";
+                return View();
+            }
+            else if (ModelState.IsValid)
+            {
+                _clienteRepository.Cadastrar(cliente);
+                return RedirectToAction(nameof(Login));
+            }
+            return View(cliente);
         }
 
     }

@@ -27,9 +27,9 @@ Tipo Varchar(8) not null,
 Telefone Varchar(11) not null
 );
 
-insert into Cliente values (default, "Giovanna", "2008-10-03", "F", "12345678910", "11999999999999", "giovanna@gmail.com", "12345678", "A");
+insert into Cliente values (default, "Laura", "2008-10-03", "F", "12312312300", "11940407912", "lauraxavier@gmail.com", "12345678", "A");
 
 select * from Cliente;
 select * from Colaborador;
 
-insert into Colaborador values(default, "Giovanna", 12312312365, "Lauraxavi@gmail.com", "12345678", "G", "11999999999");
+insert into Colaborador values(default, "Arthut", 45645645600, "arthur@gmail.com", "12345678", "G", "11988252332");

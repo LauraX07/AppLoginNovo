@@ -189,13 +189,13 @@ namespace AppLogin.Repository
         public void Ativar(int Id)
         {
             string Situacao = SituacaoConstant.Ativo;
-            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
                 MySqlCommand cmd = new MySqlCommand("update Cliente set Situacao = @Situacao WHERE Id=@Id", conexao);
 
                 cmd.Parameters.Add("@Id", MySqlDbType.VarChar).Value = Id;
-                cmd.Parameters.Add("@Situacao", MySqlDbType.VarChar).Value=Situacao;
+                cmd.Parameters.Add("@Situacao", MySqlDbType.VarChar).Value = Situacao;
                 cmd.ExecuteNonQuery();
                 conexao.Close();
             }
@@ -216,6 +216,48 @@ namespace AppLogin.Repository
                 conexao.Close();
             }
 
+        }
+
+        public Cliente BuscaCpfCliente(string CPF)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select CPF from Cliente WHERE CPF=@CPF", conexao);
+                cmd.Parameters.AddWithValue("@CPF", CPF);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                MySqlDataReader dr;
+
+                Cliente cliente = new Cliente();
+                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                while (dr.Read())
+                {
+                    cliente.CPF = (string)(dr["CPF"]);
+                }
+                return cliente;
+            }
+        }
+
+        public Cliente BuscaEmailCliente(string Email)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select Email from Cliente WHERE Email=@Email", conexao);
+                cmd.Parameters.AddWithValue("@Email", Email);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                MySqlDataReader dr;
+
+                Cliente cliente = new Cliente();
+                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                while (dr.Read())
+                {
+                    cliente.Email = (string)(dr["Email"]);  
+                }
+                return cliente;
+            }
         }
     }
 }
